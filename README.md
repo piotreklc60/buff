@@ -61,16 +61,16 @@ Vector buffer is a table of pointers to linear buffers (Buff_Readable_Vector_XT 
 which is some kind of alternative to simple data pointer. It is used for copying procedures (not as permanent storage container).
 For example:
 Vector buffer which is composed from 4 elements:
-v[0] = {0x12, 0x44, 0x01, 0xC7, 0x55};
-v[1] = {0x36, 0x21};
-v[2] = {0x72, 0x4C, 0x31};
-v[3] = {0x22};
-
-Represents one linear buffer:
-data = {0x12, 0x44, 0x01, 0xC7, 0x55, 0x36, 0x21, 0x72, 0x4C, 0x31, 0x22}
-        |__________________________|  |________|  |______________|  |__|
-                     |                     |             |            |
-                   v[0]                  v[1]          v[2]         v[3]
+ v[0] = {0x12, 0x44, 0x01, 0xC7, 0x55};
+ v[1] = {0x36, 0x21};
+ v[2] = {0x72, 0x4C, 0x31};
+ v[3] = {0x22};
+ 
+ Represents one linear buffer:
+ data = {0x12, 0x44, 0x01, 0xC7, 0x55, 0x36, 0x21, 0x72, 0x4C, 0x31, 0x22}
+         |__________________________|  |________|  |______________|  |__|
+                      |                     |             |            |
+                    v[0]                  v[1]          v[2]         v[3]
 
 These buffers are useful for communication libraries.
 Let say, there is a library which is responsible for communication protocol; it must add some header and checksum to transmitted data.
