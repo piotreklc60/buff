@@ -19,7 +19,7 @@ Vendor-specific memcpy like function must look like below:
 Buff_Size_DT (*Buff_Vendor_Memcpy_HT) (const Buff_Memcpy_Params_XT *params);
 It is function which takes pointer to structure with all needed parameters and returns size of data which copied (can copy less than was requested).
 Parameter structure is:
-
+<xmp>
 typedef struct Buff_Memcpy_Params_eXtended_Tag
 {
    // pointer to destination memory
@@ -36,7 +36,7 @@ typedef struct Buff_Memcpy_Params_eXtended_Tag
    // if BUFF_TRUE then this is last call of Buff_Vendor_Memcpy_HT needed to copy requested data buffer
    Buff_Bool_DT is_last_part;
 }Buff_Memcpy_Params_XT;
-
+</xmp>
 When library function copies data to vendor buffer, there must be provided pointer to Buff_Vendor_Memcpy_HT type function
 and pointer to vendor buffer. Vendor buffer pointer is provided as "dest" parameter of Buff_Memcpy_Params_XT structure.
 Parameter "src" is in this case pointer to part of linear buffer from which data is copied and shall be used as normal linear buffer.
