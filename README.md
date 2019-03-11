@@ -2,6 +2,7 @@ This is an ANSI C library which defines 5 types of buffers:
 1. Linear Buffers
 2. Vendor Buffers
 3. Vector Buffers
+<b>
 4. Tree Bufers
 5. Ring Buffers
 
