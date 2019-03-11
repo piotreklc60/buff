@@ -31,7 +31,7 @@ This is an ANSI C library which defines 5 types of buffers:
 5. Ring Buffers
 
 ---------------------------------------------------------------------------------------------------
-1. Linear Buffer - this is simple bytes table.
+1. Linear Buffer - this is most obvious buffer type; simple bytes table.
 uint8_t data[23];
 
 ---------------------------------------------------------------------------------------------------
