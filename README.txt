@@ -130,30 +130,30 @@ It is used for copying procedures (not as permanent storage container).
 IN BELOW EXAMPLE THERE ARE USED TREE ELEMENTS ".v" AND ".t" ONLY TO SHOW IDEA. STRUCTURES USED BY LIBRARY HAVE FIELDS WITH DIFFERENT NAME.
 
 For example:
- * Tree buffer which is composed of: pointer to "before" tree, first vector of 2 elements, second vector of 2 elements and "after" tree:
- * before[0].v[0]   = {0x03};
- * before[0].v[1]   = {0xD3, 0xDD};
- *
- * t[0].t    = &before
- * t[1].v[0] = {0x12}
- * t[1].v[1] = {0x36, 0x21}
- * t[2].v[0] = {0x72, 0x4C, 0x31}
- * t[2].v[1] = {0x22}
- * t[3].t    = &after;
- *
- * after_before[0].v[0]   = {0xB2};
- * after_before[0].v[1]   = {0xC2, 0xC3, 0xC4, 0xC5};
- *
- * after[0].t    = &after_before;
- * after[1].v[0] = {0x17, 0x40};
- * after[2].t    = &after_after;
- *
- * after_after[0].v[0]   = {0x01};
- * after_after[0].v[1]   = {0x02, 0x03};
- * after_after[0].v[2]   = {0x04};
- * after_after[1].t      = &after_after_after;
- *
- * after_after_after[0].v[0]   = {0xF1};
+ Tree buffer which is composed of: pointer to "before" tree, first vector of 2 elements, second vector of 2 elements and "after" tree:
+ before[0].v[0]   = {0x03};
+ before[0].v[1]   = {0xD3, 0xDD};
+
+ t[0].t    = &before
+ t[1].v[0] = {0x12}
+ t[1].v[1] = {0x36, 0x21}
+ t[2].v[0] = {0x72, 0x4C, 0x31}
+ t[2].v[1] = {0x22}
+ t[3].t    = &after;
+
+ after_before[0].v[0]   = {0xB2};
+ after_before[0].v[1]   = {0xC2, 0xC3, 0xC4, 0xC5};
+
+ after[0].t    = &after_before;
+ after[1].v[0] = {0x17, 0x40};
+ after[2].t    = &after_after;
+
+ after_after[0].v[0]   = {0x01};
+ after_after[0].v[1]   = {0x02, 0x03};
+ after_after[0].v[2]   = {0x04};
+ after_after[1].t      = &after_after_after;
+
+ after_after_after[0].v[0]   = {0xF1};
 
 Represents one linear buffer:
 
