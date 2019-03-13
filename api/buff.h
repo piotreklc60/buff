@@ -358,7 +358,7 @@
  * IN BELOW EXAMPLE THERE ARE USED TREE ELEMENTS ".v" AND ".t" ONLY TO SHOW IDEA. STRUCTURES USED BY LIBRARY HAVE FIELDS WITH DIFFERENT NAME.
  *
  * For example:
- * Tree buffer which is composed of: pointer to "before" tree, first vector of 2 elements, second vector of 2 elements "after" tree  and third vector of one element:
+ * Tree buffer which is composed of: pointer to "before" tree, first vector of 2 elements, second vector of 2 elements and "after" tree:
  * before[0].v[0]   = {0x03};
  * before[0].v[1]   = {0xD3, 0xDD};
  *
