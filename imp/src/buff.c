@@ -4321,6 +4321,10 @@ Buff_Size_DT Buff_Ring_To_Ring_Copy(
 #endif
 #endif
 
+   BUFF_ENTER_FUNC();
+   BUFF_DEBUG_RING(dest);
+   BUFF_DEBUG_RING(src);
+
    if(BUFF_LIKELY(BUFF_CHECK_PTR(Buff_Ring_XT, dest) && BUFF_CHECK_PTR(Buff_Ring_XT, src)))
    {
 #if(BUFF_RING_USE_PROTECTION)
