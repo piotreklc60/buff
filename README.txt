@@ -23,6 +23,19 @@
  * -----------------------------------------------------------------------------------------------------------------------------
  */
 
+This document defines following sections:
+I. Introduction.
+II. How to use the library.
+
+
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+I. Introduction.
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+
 This is an ANSI C library which defines 5 types of buffers:
 1. Linear Buffers
 2. Vendor Buffers
@@ -107,7 +120,8 @@ Other solution is vector. Let say, transmit function is able to take vector inst
 from vector in transmit buffer. In this case our library prepares vector with 3 elements: v[0] = header; v[1] = user data; v[2] = checksum
 and provides vector to transmit function.
 
-There can be 2 types of vector buffers - readable vector (vector read only) and writeable vector (readable and writeable vector). Single element of each type is defined as below:
+There can be 2 types of vector buffers - readable vector (vector read only) and writeable vector (readable and writeable vector).
+Single element of each type is defined as below:
 
 typedef struct Buff_Writeable_Vector_eXtended_Tag
 {
@@ -218,3 +232,232 @@ This is fully invisible for used because write / peak / read / overwrite / remov
 (user doesn't operate directly on buffer's memory area but uses functions dedicated for it). If there is not enough free space
 in the buffer during writing, this implementation of ring buffer may overwrite oldest data or not,
 depends to definition BUFF_RING_ALLOW_OLD_DATA_OVERWRITE and write function parameter "overwrite_if_no_free_space".
+
+
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+II. How to use the library.
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+
+Library consists of 2 files: api/buff.h and imp/src/buff.c. These 2 files must be added to the project. Next, also buff_cfg.h must be created as buff.h includes it.
+File buff_cfg.h defines which elements of library user wants to use, defines settings needed by library, etc.
+Generally, buff.h and buff.c needs a lot of settings which must be provided by user. Most of these settings are pre-defined to enable all functions and
+to compile correctly under gcc.
+User must review them and configure properly. Below I will list all settings user must review. I will list them and describe groups of settings
+and when / how it shall be re-defined.
+I will not describe them in details in this file because all settings are described in details in buff.h.
+
+---------------------------------------------------------------------------------------------------
+1. Compiler dependant settings
+This is a group of settings, predefined on the begining of buff.h to work properly with gcc. There are following definitions and macroes defined as below:
+#define BUFF_FALSE                           false
+#define BUFF_TRUE                            true
+#define BUFF_BOOL_IS_TRUE(condition)                              (condition)
+#define BUFF_BOOL_IS_FALSE(condition)                             (!(condition))
+#define BUFF_LIKELY(expresion)                                    (expresion)
+#define BUFF_UNLIKELY(expresion)                                  (expresion)
+#define BUFF_MAKE_INVALID_PTR(type)                               ((type*)(NULL))
+#define BUFF_MAKE_INVALID_HANDLER(type)                           ((type)(NULL))
+#define BUFF_CHECK_PTR(type, ptr)                                 (BUFF_MAKE_INVALID_PTR(type) != (ptr))
+#define BUFF_CHECK_HANDLER(type, handler)                         (BUFF_MAKE_INVALID_HANDLER(type) != (handler))
+#define BUFF_COMPARE_PTRS(type1, ptr1, type2, ptr2)               (((type1*)(ptr1)) == ((type2*)(ptr2)))
+#define BUFF_COMPARE_HANDLERS(type1, handler1, type2, handler2)   (((type1)(handler1)) == ((type2)(handler2)))
+
+These definitions must be re-defined by user if doesn't work properly with compiler used in the project.
+For detailed description what is the purpose of use for each of them please look into buff.h where it is defined.
+
+---------------------------------------------------------------------------------------------------
+2. Library debugging support
+This section includes 3 macroes defined by default as empty macroes:
+#define BUFF_ENTER_FUNC()
+#define BUFF_EXIT_FUNC()
+#define BUFF_DEBUG_RING(buf)
+
+First 2 can be used to monitor entrance and exit of each function defined in library. Third is called additionally on every entrance and exit of functions accessing ring buffers,
+providing as parameter pointer to the buffer which is assessed.
+If user doesn't want to monitor entrances / exit of library functions, these macroes should remain defined as empty.
+
+---------------------------------------------------------------------------------------------------
+3. Library features enabling / disabling
+This is a group of settings used to enable / disable group of library features. There are:
+#define BUFF_FEATURE_DISABLED                false
+#define BUFF_FEATURE_ENABLED                 true
+#define BUFF_DEFAULT_FEATURES_STATE          BUFF_FEATURE_ENABLED
+#define BUFF_SAVE_PROGRAM_MEMORY             BUFF_FEATURE_DISABLED
+#define BUFF_USE_VENDOR_BUFFERS              BUFF_DEFAULT_FEATURES_STATE
+#define BUFF_USE_VECTOR_BUFFERS              BUFF_DEFAULT_FEATURES_STATE
+#define BUFF_USE_TREE_BUFFERS                BUFF_DEFAULT_FEATURES_STATE
+#define BUFF_USE_RING_BUFFERS                BUFF_DEFAULT_FEATURES_STATE
+#define BUFF_RING_ALLOW_OLD_DATA_OVERWRITE   BUFF_DEFAULT_FEATURES_STATE
+#define BUFF_RING_USE_EXTENSIONS             BUFF_DEFAULT_FEATURES_STATE
+#define BUFF_RING_USE_PROTECTED_EXTENSIONS   BUFF_DEFAULT_FEATURES_STATE
+#define BUFF_RING_USE_PROTECTION             BUFF_FEATURE_ENABLED
+#define BUFF_RING_USE_BUSY_SIZE_MONITORING   BUFF_FEATURE_ENABLED
+#define BUFF_RING_DATA_CHECK_IN_CHECK_OUT_ENABLED        BUFF_DEFAULT_FEATURES_STATE
+
+First 2 must work properly with preprocessor checking:
+#if(condition)
+
+Third setting is default state for most of features. Almost all of settings are re-defined by default to BUFF_DEFAULT_FEATURES_STATE so if it is set to BUFF_FEATURE_ENABLED
+then library is pre-configured to enable all features. BUFF_SAVE_PROGRAM_MEMORY says if library shall replace body of some functions by calling internally other which can replace it.
+Next 4 definitions enable / disable most important groups of features: vector/vendor/tree/ring buffers.
+Last 6 definitions are used only if ring buffers are enabled.
+
+---------------------------------------------------------------------------------------------------
+4. Multi thread / Multi-context operations protection
+This section defines macroes used only for ring buffers and only if BUFF_RING_USE_PROTECTION setting is enabled:
+#define BUFF_PROTECTION_DECLARE()
+#define BUFF_PROTECTION_CREATE(buf)    true
+#define BUFF_PROTECTION_DESTROY(buf)
+#define BUFF_PROTECTION_INIT(buf)      true
+#define BUFF_PROTECTION_DEINIT(buf)
+#define BUFF_PROTECTION_LOCK(buf)
+#define BUFF_PROTECTION_UNLOCK(buf)
+
+These macroes are used to create, initialize, activate and deactivate protection mechanism used in case if user will access same ring buffers from different threads.
+Usually it can be mutex or critical section, depends to user decision.
+Is you are sure ring buffer will not be accessed in same time by different threads or if you will secure it externally, these macroes can remain empty
+and BUFF_RING_USE_PROTECTION can be turned off.
+
+---------------------------------------------------------------------------------------------------
+5. Library types.
+This section defines many types used by library, however user shall focus on 3:
+#ifndef BUFF_BOOL_DT_EXTERNAL
+typedef bool_t Buff_Bool_DT;
+#endif
+#ifndef BUFF_SIZE_DT_EXTERNAL
+typedef size_t Buff_Size_DT;
+#endif
+#ifndef BUFF_NUM_ELEMS_DT_EXTERNAL
+typedef size_t Buff_Num_Elems_DT;
+#endif
+
+These 3 types are most basic and most important, shall be reviewed by user and re-defined if needed.
+Especially Buff_Bool_DT (not every compiler knows bool_t type which is used by default.
+
+---------------------------------------------------------------------------------------------------
+6. Interfaces.
+This section includes prototypes of all functions defined by library. Before prototype of each function there is defined default setting of SW switch do enable / disable it, like on example below:
+#ifndef BUFF_COPY_FROM_VECTOR_ENABLED
+#define BUFF_COPY_FROM_VECTOR_ENABLED                    BUFF_DEFAULT_FEATURES_STATE
+#endif
+#if(BUFF_COPY_FROM_VECTOR_ENABLED)
+Buff_Size_DT Buff_Copy_From_Vector(
+   void                            *dest,
+   const Buff_Readable_Vector_XT   *src,
+   Buff_Num_Elems_DT                src_num_elems,
+   Buff_Size_DT                     size,
+   Buff_Size_DT                     offset_dest,
+   Buff_Size_DT                     offset_src);
+#endif
+
+By default all functions SW switches re-defined to BUFF_DEFAULT_FEATURES_STATE.
+It gived 2 basic ways of enabling / disabling features:
+ a) Leave default definition of BUFF_DEFAULT_FEATURES_STATE to BUFF_FEATURE_ENABLED. In this scenario library is fully enabled. Now we can disable specific functions or gorups of features (types of buffers using definitions from point 4). To turn OFF specific functions or groups, simply re-define its SW switch in buff_cfg.h to BUFF_FEATURE_DISABLED.
+ b) Re-define BUFF_DEFAULT_FEATURES_STATE to BUFF_FEATURE_DISABLED. Now all features of library are turned OFF. To enable only these functions which we need, re-define its group switch (point 4) to BUFF_FEATURE_ENABLED and function SW switch to BUFF_FEATURE_ENABLED in buff_acfg.h
+ 
+Following function interfaces there are defined:
+#if(BUFF_USE_VECTOR_BUFFERS)
+    Buff_Get_Readable_Vector_Data_Size
+    Buff_Get_Writeable_Vector_Data_Size
+    Buff_Copy_From_Vector
+    #if(BUFF_USE_VENDOR_BUFFERS)
+        Buff_Copy_From_Vector_Vendor
+    #endif
+    Buff_Copy_To_Vector
+    #if(BUFF_USE_VENDOR_BUFFERS)
+        Buff_Copy_To_Vector_Vendor
+    #endif
+    Buff_Copy_Vector_To_Vector
+#endif
+
+#if(BUFF_USE_TREE_BUFFERS)
+    Buff_Get_Readable_Tree_Data_Size
+    Buff_Get_Writeable_Tree_Data_Size
+    Buff_Copy_From_Tree
+    #if(BUFF_USE_VENDOR_BUFFERS)
+        Buff_Copy_From_Tree_Vendor
+    #endif
+    Buff_Copy_To_Tree
+    #if(BUFF_USE_VENDOR_BUFFERS)
+        Buff_Copy_To_Tree_Vendor
+    #endif
+    Buff_Copy_Tree_To_Tree
+#endif
+
+#if(BUFF_USE_RING_BUFFERS)
+    Buff_Ring_Init
+    Buff_Ring_Deinit
+    #if(BUFF_RING_USE_EXTENSIONS)
+        Buff_Ring_Init_Extension
+        Buff_Ring_Add_Extension
+    #endif
+    #if(BUFF_RING_USE_PROTECTED_EXTENSIONS)
+        Buff_Ring_Add_Protected_Extension
+    #endif
+    #if(BUFF_RING_USE_PROTECTION)
+        Buff_Protection_Lock
+        Buff_Protection_Unlock
+    #endif
+    BUFF_RING_IS_EMPTY
+    Buff_Ring_Is_Empty
+    BUFF_RING_IS_FULL
+    Buff_Ring_Is_Full
+    BUFF_RING_GET_SIZE
+    Buff_Ring_Get_Size
+    BUFF_RING_GET_BUSY_SIZE
+    Buff_Ring_Get_Busy_Size
+    #if(BUFF_RING_USE_BUSY_SIZE_MONITORING)
+        BUFF_RING_GET_MAX_BUSY_SIZE
+        Buff_Ring_Get_Max_Busy_Size
+    #endif
+    BUFF_RING_GET_FREE_SIZE
+    Buff_Ring_Get_Free_Size
+    Buff_Ring_Get_Continous_Free_Size
+    BUFF_RING_GET_CURRENT_POS
+    Buff_Ring_Get_Current_Pos
+    #if(BUFF_RING_DATA_CHECK_IN_CHECK_OUT_ENABLED)
+        Buff_Ring_Data_Check_Out
+        Buff_Ring_Data_Check_In
+    #endif
+    Buff_Ring_Write
+    #if(BUFF_USE_VENDOR_BUFFERS)
+        Buff_Ring_Write_Vendor
+    #endif
+    #if(BUFF_USE_VECTOR_BUFFERS)
+        Buff_Ring_Write_From_Vector
+    #endif
+    #if(BUFF_USE_TREE_BUFFERS)
+        Buff_Ring_Write_From_Tree
+    #endif
+    Buff_Ring_OverWrite_If_Exist
+    #if(BUFF_USE_VENDOR_BUFFERS)
+        Buff_Ring_OverWrite_If_Exist_Vendor
+    #endif
+    Buff_Ring_Peak
+    #if(BUFF_USE_VENDOR_BUFFERS)
+        Buff_Ring_Peak_Vendor
+    #endif
+    #if(BUFF_USE_VECTOR_BUFFERS)
+        Buff_Ring_Peak_To_Vector
+    #endif
+    #if(BUFF_USE_TREE_BUFFERS)
+        Buff_Ring_Peak_To_Tree
+    #endif
+    Buff_Ring_Read
+    #if(BUFF_USE_VENDOR_BUFFERS)
+        Buff_Ring_Read_Vendor
+    #endif
+    #if(BUFF_USE_VECTOR_BUFFERS)
+        Buff_Ring_Read_To_Vector
+    #endif
+    #if(BUFF_USE_TREE_BUFFERS)
+        Buff_Ring_Read_To_Tree
+    #endif
+    Buff_Ring_To_Ring_Copy
+    Buff_Ring_Remove
+    Buff_Ring_Clear
+#endif
