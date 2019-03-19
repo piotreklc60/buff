@@ -31,31 +31,10 @@
 
 #define BUFF_DEFAULT_FEATURES_STATE                      BUFF_FEATURE_ENABLED
 
-#if 0
-/* for iocmd */
-#define BUFF_USE_VECTOR_BUFFERS                          BUFF_FEATURE_ENABLED
-
-#define BUFF_USE_RING_BUFFERS                            BUFF_FEATURE_ENABLED
-
-#define BUFF_COPY_TO_VECTOR_ENABLED                      BUFF_FEATURE_ENABLED
-#define BUFF_COPY_VECTOR_TO_VECTOR_ENABLED               BUFF_FEATURE_ENABLED
-
-#define BUFF_RING_INIT_ENABLED                           BUFF_FEATURE_ENABLED
-#define BUFF_RING_DEINIT_ENABLED                         BUFF_FEATURE_ENABLED
-#define BUFF_RING_WRITE_ENABLED                          BUFF_FEATURE_ENABLED
-#define BUFF_RING_WRITE_FROM_VECTOR_ENABLED              BUFF_FEATURE_ENABLED
-#define BUFF_RING_PEAK_ENABLED                           BUFF_FEATURE_ENABLED
-#define BUFF_RING_READ_ENABLED                           BUFF_FEATURE_ENABLED
-#define BUFF_RING_REMOVE_ENABLED                         BUFF_FEATURE_ENABLED
-#define BUFF_RING_CLEAR_ENABLED                          BUFF_FEATURE_ENABLED
-#endif
-
 #define BUFF_RING_USE_PROTECTION            false
 
 #define BUFF_LIKELY(expresion)                    __builtin_expect ((expresion), 1)
 #define BUFF_UNLIKELY(expresion)                  __builtin_expect ((expresion), 0)
-
-//#define BUFF_USE_TREE_BUFFERS          false
 
 #define BUFF_SAVE_PROGRAM_MEMORY             BUFF_FEATURE_DISABLED
 
