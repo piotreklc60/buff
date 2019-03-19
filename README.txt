@@ -354,7 +354,7 @@ Buff_Size_DT Buff_Copy_From_Vector(
    Buff_Size_DT                     offset_src);
 #endif
 
-By default all functions SW switches re-defined to BUFF_DEFAULT_FEATURES_STATE.
+By default all function SW switches are re-defined to BUFF_DEFAULT_FEATURES_STATE.
 It gived 2 basic ways of enabling / disabling features:
  a) Leave default definition of BUFF_DEFAULT_FEATURES_STATE to BUFF_FEATURE_ENABLED. In this scenario library is fully enabled. Now we can disable specific functions or gorups of features (types of buffers using definitions from point 4). To turn OFF specific functions or groups, simply re-define its SW switch in buff_cfg.h to BUFF_FEATURE_DISABLED.
  b) Re-define BUFF_DEFAULT_FEATURES_STATE to BUFF_FEATURE_DISABLED. Now all features of library are turned OFF. To enable only these functions which we need, re-define its group switch (point 4) to BUFF_FEATURE_ENABLED and function SW switch to BUFF_FEATURE_ENABLED in buff_acfg.h
