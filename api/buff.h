@@ -1409,7 +1409,7 @@ Buff_Size_DT Buff_Ring_Get_Busy_Size(Buff_Ring_XT *buf, Buff_Bool_DT use_protect
 #ifndef BUFF_RING_GET_MAX_BUSY_SIZE_ENABLED
 #define BUFF_RING_GET_MAX_BUSY_SIZE_ENABLED              BUFF_DEFAULT_FEATURES_STATE
 #endif
-#if(BUFF_RING_GET_MAX_BUSY_SIZE_ENABLED)
+#if(BUFF_RING_GET_MAX_BUSY_SIZE_ENABLED && BUFF_RING_USE_BUSY_SIZE_MONITORING)
 /**
  * @brief Function which gets maximum busy size of buffer - maximum size of data stored in buffer since buffer initialization.
  * (same as macro BUFF_RING_GET_MAX_BUSY_SIZE).
