@@ -28,6 +28,11 @@
 
 #include "buff_acfg.h"
 
+#ifdef __cplusplus
+extern "C"
+{ /* ! Do not include any header file inside the extern "C" block!!! */
+#endif
+
 /**
  * -----------------------------------------------------------------------------------------------------------------------------
  * ----------------------------------------- START OF LIBRARY CONFIGURATION ----------------------------------------------------
@@ -1965,5 +1970,9 @@ void Buff_Ring_Clear(Buff_Ring_XT *buf, Buff_Bool_DT use_protection);
  * -----------------------------------------------------------------------------------------------------------------------------
  */
 
+#ifdef __cplusplus
+} /* extern "C" */
+#endif
+ 
 #endif
 
