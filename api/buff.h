@@ -203,6 +203,15 @@ extern "C"
 #define BUFF_COMPARE_HANDLERS(type1, handler1, type2, handler2)   (((type1)(handler1)) == ((type2)(handler2)))
 #endif
 
+#ifndef BUFF_UNUSED_PARAM
+/**
+ * @brief Macro used to avoid compilator warning when a parameter is not used.
+ *
+ * @param param parameter which shall be indicated it is not used
+ */
+#define BUFF_UNUSED_PARAM(param)                                  (void)(param)
+#endif
+
 
 /* ----------------------------------------- LIBRARY DEBUGGING SUPPORT --------------------------------------------------------- */
 
@@ -1973,6 +1982,6 @@ void Buff_Ring_Clear(Buff_Ring_XT *buf, Buff_Bool_DT use_protection);
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
- 
+
 #endif
 

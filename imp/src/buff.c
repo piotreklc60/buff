@@ -1591,6 +1591,10 @@ Buff_Bool_DT Buff_Ring_Is_Empty(Buff_Ring_XT *buf, Buff_Bool_DT use_protection)
 {
    Buff_Bool_DT result = BUFF_TRUE;
 
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
+#endif
+
    BUFF_ENTER_FUNC();
    BUFF_DEBUG_RING(buf);
 
@@ -1626,6 +1630,10 @@ Buff_Bool_DT Buff_Ring_Is_Empty(Buff_Ring_XT *buf, Buff_Bool_DT use_protection)
 Buff_Bool_DT Buff_Ring_Is_Full(Buff_Ring_XT *buf, Buff_Bool_DT use_protection)
 {
    Buff_Bool_DT result = BUFF_TRUE;
+
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
+#endif
 
    BUFF_ENTER_FUNC();
    BUFF_DEBUG_RING(buf);
@@ -1663,6 +1671,10 @@ Buff_Size_DT Buff_Ring_Get_Size(Buff_Ring_XT *buf, Buff_Bool_DT use_protection)
 {
    Buff_Size_DT result = 0;
 
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
+#endif
+
    BUFF_ENTER_FUNC();
    BUFF_DEBUG_RING(buf);
 
@@ -1698,6 +1710,10 @@ Buff_Size_DT Buff_Ring_Get_Size(Buff_Ring_XT *buf, Buff_Bool_DT use_protection)
 Buff_Size_DT Buff_Ring_Get_Busy_Size(Buff_Ring_XT *buf, Buff_Bool_DT use_protection)
 {
    Buff_Size_DT result = 0;
+
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
+#endif
 
    BUFF_ENTER_FUNC();
    BUFF_DEBUG_RING(buf);
@@ -1735,6 +1751,10 @@ Buff_Size_DT Buff_Ring_Get_Max_Busy_Size(Buff_Ring_XT *buf, Buff_Bool_DT use_pro
 {
    Buff_Size_DT result = 0;
 
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
+#endif
+
    BUFF_ENTER_FUNC();
    BUFF_DEBUG_RING(buf);
 
@@ -1771,6 +1791,10 @@ Buff_Size_DT Buff_Ring_Get_Free_Size(Buff_Ring_XT *buf, Buff_Bool_DT use_protect
 {
    Buff_Size_DT result = 0;
 
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
+#endif
+
    BUFF_ENTER_FUNC();
    BUFF_DEBUG_RING(buf);
 
@@ -1806,6 +1830,10 @@ Buff_Size_DT Buff_Ring_Get_Free_Size(Buff_Ring_XT *buf, Buff_Bool_DT use_protect
 Buff_Size_DT Buff_Ring_Get_Continous_Free_Size(Buff_Ring_XT *buf, Buff_Bool_DT use_protection)
 {
    Buff_Size_DT result = 0;
+
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
+#endif
 
    BUFF_ENTER_FUNC();
    BUFF_DEBUG_RING(buf);
@@ -1850,6 +1878,10 @@ Buff_Size_DT Buff_Ring_Get_Current_Pos(Buff_Ring_XT *buf, Buff_Bool_DT use_prote
 {
    Buff_Size_DT result = 0;
 
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
+#endif
+
    BUFF_ENTER_FUNC();
    BUFF_DEBUG_RING(buf);
 
@@ -1890,6 +1922,10 @@ void *Buff_Ring_Data_Check_Out(
 {
    void          *result = BUFF_MAKE_INVALID_PTR(void);
    Buff_Bool_DT   resize_occured = BUFF_FALSE;
+
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
+#endif
 
    BUFF_ENTER_FUNC();
    BUFF_DEBUG_RING(buf);
@@ -1956,6 +1992,10 @@ Buff_Size_DT Buff_Ring_Data_Check_In(Buff_Ring_XT *buf, Buff_Size_DT size, Buff_
    Buff_Size_DT cntr;
 #if(BUFF_RING_USE_EXTENSIONS || BUFF_RING_USE_PROTECTED_EXTENSIONS)
    Buff_Bool_DT rewind_occured = BUFF_FALSE;
+#endif
+
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
 #endif
 
    BUFF_ENTER_FUNC();
@@ -2106,6 +2146,10 @@ Buff_Size_DT Buff_Ring_Write(
 #if(BUFF_RING_USE_EXTENSIONS)
    Buff_Bool_DT data_changed = BUFF_FALSE;
 #endif
+#endif
+
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
 #endif
 
    BUFF_ENTER_FUNC();
@@ -2260,6 +2304,10 @@ Buff_Size_DT Buff_Ring_Write_Vendor(
 #if(BUFF_RING_USE_EXTENSIONS)
    Buff_Bool_DT data_changed = BUFF_FALSE;
 #endif
+#endif
+
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
 #endif
 
    BUFF_ENTER_FUNC();
@@ -2476,6 +2524,10 @@ Buff_Size_DT Buff_Ring_Write_From_Vector(
 #endif
 #endif
 
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
+#endif
+
    BUFF_ENTER_FUNC();
    BUFF_DEBUG_RING(buf);
 
@@ -2642,6 +2694,10 @@ Buff_Size_DT Buff_Ring_Write_From_Tree(
 #if(BUFF_RING_USE_EXTENSIONS)
    Buff_Bool_DT data_changed = BUFF_FALSE;
 #endif
+#endif
+
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
 #endif
 
    BUFF_ENTER_FUNC();
@@ -2825,6 +2881,10 @@ Buff_Size_DT Buff_Ring_OverWrite_If_Exist(
 #endif
 #endif
 
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
+#endif
+
    BUFF_ENTER_FUNC();
    BUFF_DEBUG_RING(buf);
 
@@ -2984,6 +3044,10 @@ Buff_Size_DT Buff_Ring_OverWrite_If_Exist_Vendor(
 #if(BUFF_RING_USE_EXTENSIONS)
    Buff_Bool_DT data_changed = BUFF_FALSE;
 #endif
+#endif
+
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
 #endif
 
    BUFF_ENTER_FUNC();
@@ -3223,6 +3287,10 @@ Buff_Size_DT Buff_Ring_Peak(
    Buff_Size_DT part_size;
    Buff_Size_DT count = 0;
 
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
+#endif
+
    BUFF_ENTER_FUNC();
    BUFF_DEBUG_RING(buf);
 
@@ -3302,6 +3370,10 @@ Buff_Size_DT Buff_Ring_Peak_Vendor(
    Buff_Size_DT part_size;
    Buff_Size_DT count = 0;
    Buff_Size_DT ret_count;
+
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
+#endif
 
    BUFF_ENTER_FUNC();
    BUFF_DEBUG_RING(buf);
@@ -3431,6 +3503,10 @@ Buff_Size_DT Buff_Ring_Peak_To_Vector(
    Buff_Size_DT      count = 0;
    Buff_Num_Elems_DT vector_num_elems;
 
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
+#endif
+
    BUFF_ENTER_FUNC();
    BUFF_DEBUG_RING(buf);
 
@@ -3519,6 +3595,10 @@ Buff_Size_DT Buff_Ring_Peak_To_Tree(
    Buff_Readable_Tree_XT tree;
    Buff_Size_DT read_start;
    Buff_Size_DT count = 0;
+
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
+#endif
 
    BUFF_ENTER_FUNC();
    BUFF_DEBUG_RING(buf);
@@ -3653,6 +3733,10 @@ Buff_Size_DT Buff_Ring_Read(
 #if(BUFF_RING_USE_EXTENSIONS)
    Buff_Bool_DT data_changed = BUFF_FALSE;
 #endif
+#endif
+
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
 #endif
 
    BUFF_ENTER_FUNC();
@@ -3794,6 +3878,10 @@ Buff_Size_DT Buff_Ring_Read_Vendor(
 #if(BUFF_RING_USE_EXTENSIONS)
    Buff_Bool_DT data_changed = BUFF_FALSE;
 #endif
+#endif
+
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
 #endif
 
    BUFF_ENTER_FUNC();
@@ -3997,6 +4085,10 @@ Buff_Size_DT Buff_Ring_Read_To_Vector(
 #endif
 #endif
 
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
+#endif
+
    BUFF_ENTER_FUNC();
    BUFF_DEBUG_RING(buf);
 
@@ -4150,6 +4242,10 @@ Buff_Size_DT Buff_Ring_Read_To_Tree(
 #if(BUFF_RING_USE_EXTENSIONS)
    Buff_Bool_DT data_changed = BUFF_FALSE;
 #endif
+#endif
+
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
 #endif
 
    BUFF_ENTER_FUNC();
@@ -4319,6 +4415,10 @@ Buff_Size_DT Buff_Ring_To_Ring_Copy(
 #if(BUFF_RING_USE_EXTENSIONS)
    Buff_Bool_DT data_changed = BUFF_FALSE;
 #endif
+#endif
+
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
 #endif
 
    BUFF_ENTER_FUNC();
@@ -4533,6 +4633,10 @@ Buff_Size_DT Buff_Ring_Remove(Buff_Ring_XT *buf, Buff_Size_DT size, Buff_Bool_DT
    Buff_Bool_DT rewind_occured = BUFF_FALSE;
 #endif
 
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
+#endif
+
    BUFF_ENTER_FUNC();
    BUFF_DEBUG_RING(buf);
 
@@ -4627,6 +4731,11 @@ void Buff_Ring_Clear(Buff_Ring_XT *buf, Buff_Bool_DT use_protection)
    Buff_Ring_Extensions_XT *extension;
    Buff_Ring_Extension_On_Remove on_remove;
 #endif
+
+#if(!BUFF_RING_USE_PROTECTION)
+   BUFF_UNUSED_PARAM(use_protection);
+#endif
+
    BUFF_ENTER_FUNC();
    BUFF_DEBUG_RING(buf);
 
