@@ -36,10 +36,10 @@ set(BUFF_PATH ${CMAKE_CURRENT_LIST_DIR})
 # ------------------------------------- BUFF CORE source files ----------------------------------------------------------------
 # -----------------------------------------------------------------------------------------------------------------------------
 
-target_include_directories(usbd_lib INTERFACE
+target_include_directories(buff_lib INTERFACE
     ${BUFF_PATH}/api/
 )
 
-target_sources(usbd_lib INTERFACE
+target_sources(buff_lib INTERFACE
     ${BUFF_PATH}/imp/src/buff.c
 )
