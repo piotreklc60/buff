@@ -24,4 +24,8 @@
 
 cmake_minimum_required(VERSION 3.22)
 
+if(NOT DEFINED BUFF_DO_NOT_EXECUTE_CMAKE)
+
 include(${CMAKE_CURRENT_LIST_DIR}/buff_lib.cmake)
+
+endif()
