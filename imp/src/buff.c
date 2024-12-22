@@ -1926,6 +1926,9 @@ void *Buff_Ring_Data_Check_Out(
 #if(!BUFF_RING_USE_PROTECTION)
    BUFF_UNUSED_PARAM(use_protection);
 #endif
+#if(!BUFF_RING_ALLOW_OLD_DATA_OVERWRITE)
+   BUFF_UNUSED_PARAM(overwrite_if_no_free_space);
+#endif
 
    BUFF_ENTER_FUNC();
    BUFF_DEBUG_RING(buf);
@@ -2309,6 +2312,9 @@ Buff_Size_DT Buff_Ring_Write_Vendor(
 #if(!BUFF_RING_USE_PROTECTION)
    BUFF_UNUSED_PARAM(use_protection);
 #endif
+#if(!BUFF_RING_ALLOW_OLD_DATA_OVERWRITE)
+   BUFF_UNUSED_PARAM(overwrite_if_no_free_space);
+#endif
 
    BUFF_ENTER_FUNC();
    BUFF_DEBUG_RING(buf);
@@ -2526,6 +2532,9 @@ Buff_Size_DT Buff_Ring_Write_From_Vector(
 
 #if(!BUFF_RING_USE_PROTECTION)
    BUFF_UNUSED_PARAM(use_protection);
+#endif
+#if(!BUFF_RING_ALLOW_OLD_DATA_OVERWRITE)
+   BUFF_UNUSED_PARAM(overwrite_if_no_free_space);
 #endif
 
    BUFF_ENTER_FUNC();
@@ -4419,6 +4428,9 @@ Buff_Size_DT Buff_Ring_To_Ring_Copy(
 
 #if(!BUFF_RING_USE_PROTECTION)
    BUFF_UNUSED_PARAM(use_protection);
+#endif
+#if(!BUFF_RING_ALLOW_OLD_DATA_OVERWRITE)
+   BUFF_UNUSED_PARAM(overwrite_if_no_free_space);
 #endif
 
    BUFF_ENTER_FUNC();
