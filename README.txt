@@ -103,7 +103,7 @@ Vector buffer which is composed from 4 elements:
  v[1] = {0x36, 0x21};
  v[2] = {0x72, 0x4C, 0x31};
  v[3] = {0x22};
- 
+
  Represents one linear buffer:
  data = {0x12, 0x44, 0x01, 0xC7, 0x55, 0x36, 0x21, 0x72, 0x4C, 0x31, 0x22}
          |__________________________|  |________|  |______________|  |__|
@@ -358,7 +358,7 @@ By default all function SW switches are re-defined to BUFF_DEFAULT_FEATURES_STAT
 It gived 2 basic ways of enabling / disabling features:
  a) Leave default definition of BUFF_DEFAULT_FEATURES_STATE to BUFF_FEATURE_ENABLED. In this scenario library is fully enabled. Now we can disable specific functions or gorups of features (types of buffers using definitions from point 4). To turn OFF specific functions or groups, simply re-define its SW switch in buff_cfg.h to BUFF_FEATURE_DISABLED.
  b) Re-define BUFF_DEFAULT_FEATURES_STATE to BUFF_FEATURE_DISABLED. Now all features of library are turned OFF. To enable only these functions which we need, re-define its group switch (point 4) to BUFF_FEATURE_ENABLED and function SW switch to BUFF_FEATURE_ENABLED in buff_acfg.h
- 
+
 Following function interfaces there are defined:
 #if(BUFF_USE_VECTOR_BUFFERS)
     Buff_Get_Readable_Vector_Data_Size

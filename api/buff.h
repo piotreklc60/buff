@@ -850,6 +850,40 @@ Buff_Size_DT Buff_Get_Readable_Vector_Data_Size(const Buff_Readable_Vector_XT *v
 Buff_Size_DT Buff_Get_Writeable_Vector_Data_Size(const Buff_Writeable_Vector_XT *vector, Buff_Num_Elems_DT vector_num_elems);
 #endif
 
+#ifndef BUFF_READABLE_VECTOR_GET_CONTINEOUS_SIZE_ENABLED
+#define BUFF_READABLE_VECTOR_GET_CONTINEOUS_SIZE_ENABLED    BUFF_DEFAULT_FEATURES_STATE
+#endif
+#if(BUFF_READABLE_VECTOR_GET_CONTINEOUS_SIZE_ENABLED)
+/**
+ * @brief Function which calculates size of next contineous part of the vector starting from possition pointed by offset variable.
+ *
+ * @result size of next contineous part of the vector
+ *
+ * @param vector pointer to readable vector for which size shall be calculated
+ * @param vector_num_elems number of vector elements (independent linear buffers which create vector data)
+ * @param offset first byte from which we should calcupate size of next contineous part of the vector.
+ */
+Buff_Size_DT Buff_Readable_Vector_Get_Contineous_Size(
+   const Buff_Readable_Vector_XT *vector, Buff_Num_Elems_DT vector_num_elems, Buff_Size_DT offset);
+#endif
+
+#ifndef BUFF_WRITEABLE_VECTOR_GET_CONTINEOUS_SIZE_ENABLED
+#define BUFF_WRITEABLE_VECTOR_GET_CONTINEOUS_SIZE_ENABLED   BUFF_DEFAULT_FEATURES_STATE
+#endif
+#if(BUFF_WRITEABLE_VECTOR_GET_CONTINEOUS_SIZE_ENABLED)
+/**
+ * @brief Function which calculates size of next contineous part of the vector starting from possition pointed by offset variable.
+ *
+ * @result size of next contineous part of the vector
+ *
+ * @param vector pointer to readable vector for which size shall be calculated
+ * @param vector_num_elems number of vector elements (independent linear buffers which create vector data)
+ * @param offset first byte from which we should calcupate size of next contineous part of the vector.
+ */
+Buff_Size_DT Buff_Writeable_Vector_Get_Contineous_Size(
+   const Buff_Writeable_Vector_XT *vector, Buff_Num_Elems_DT vector_num_elems, Buff_Size_DT offset);
+#endif
+
 #ifndef BUFF_COPY_FROM_VECTOR_ENABLED
 #define BUFF_COPY_FROM_VECTOR_ENABLED                    BUFF_DEFAULT_FEATURES_STATE
 #endif
@@ -1021,6 +1055,40 @@ Buff_Size_DT Buff_Get_Readable_Tree_Data_Size(const Buff_Readable_Tree_XT *tree,
  * @param tree_num_elems number of elements in tree root
  */
 Buff_Size_DT Buff_Get_Writeable_Tree_Data_Size(const Buff_Writeable_Tree_XT *tree, Buff_Num_Elems_DT tree_num_elems);
+#endif
+
+#ifndef BUFF_READABLE_TREE_GET_CONTINEOUS_SIZE_ENABLED
+#define BUFF_READABLE_TREE_GET_CONTINEOUS_SIZE_ENABLED   BUFF_DEFAULT_FEATURES_STATE
+#endif
+#if(BUFF_READABLE_TREE_GET_CONTINEOUS_SIZE_ENABLED)
+/**
+ * @brief Function which calculates size of next contineous part of the tree starting from possition pointed by offset variable.
+ *
+ * @result size of next contineous part of the tree
+ *
+ * @param tree pointer to writeable tree for which size shall be calculated
+ * @param tree_num_elems number of elements in tree root
+ * @param offset first byte from which we should calcupate size of next contineous part of the tree.
+ */
+Buff_Size_DT Buff_Readable_Tree_Get_Contineous_Size(
+   const Buff_Readable_Tree_XT *tree, Buff_Num_Elems_DT tree_num_elems, Buff_Size_DT offset);
+#endif
+
+#ifndef BUFF_WRITEABLE_TREE_GET_CONTINEOUS_SIZE_ENABLED
+#define BUFF_WRITEABLE_TREE_GET_CONTINEOUS_SIZE_ENABLED  BUFF_DEFAULT_FEATURES_STATE
+#endif
+#if(BUFF_WRITEABLE_TREE_GET_CONTINEOUS_SIZE_ENABLED)
+/**
+ * @brief Function which calculates size of next contineous part of the tree starting from possition pointed by offset variable.
+ *
+ * @result size of next contineous part of the tree
+ *
+ * @param tree pointer to writeable tree for which size shall be calculated
+ * @param tree_num_elems number of elements in tree root
+ * @param offset first byte from which we should calcupate size of next contineous part of the tree.
+ */
+Buff_Size_DT Buff_Writeable_Tree_Get_Contineous_Size(
+   const Buff_Writeable_Tree_XT *tree, Buff_Num_Elems_DT tree_num_elems, Buff_Size_DT offset);
 #endif
 
 #ifndef BUFF_COPY_FROM_TREE_ENABLED

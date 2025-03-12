@@ -154,19 +154,39 @@ void vector_test(void)
    printf("\n\rvector size read test:\n\r");
    if(sizeof(src) != Buff_Get_Readable_Vector_Data_Size(s_v, Num_Elems(s_v)))
    {
-      printf("line: %5d; %-36s failed\n\r", __LINE__, "Buff_Get_Readable_Vector_Data_Size");
+      printf("line: %5d; %-44s failed\n\r", __LINE__, "Buff_Get_Readable_Vector_Data_Size");
    }
    else
    {
-      printf("line: %5d; %-36s succeeded\n\r", __LINE__, "Buff_Get_Readable_Vector_Data_Size");
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Get_Readable_Vector_Data_Size");
    }
    if(sizeof(src) != Buff_Get_Writeable_Vector_Data_Size(d_v, Num_Elems(d_v)))
    {
-      printf("line: %5d; %-36s failed\n\r", __LINE__, "Buff_Get_Writeable_Vector_Data_Size");
+      printf("line: %5d; %-44s failed\n\r", __LINE__, "Buff_Get_Writeable_Vector_Data_Size");
    }
    else
    {
-      printf("line: %5d; %-36s succeeded\n\r", __LINE__, "Buff_Get_Writeable_Vector_Data_Size");
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Get_Writeable_Vector_Data_Size");
+   }
+
+
+
+   printf("\n\rvector contineous element size read test:\n\r");
+   if(13 != Buff_Readable_Vector_Get_Contineous_Size(s_v, Num_Elems(s_v), 55))
+   {
+      printf("line: %5d; %-44s failed\n\r", __LINE__, "Buff_Readable_Vector_Get_Contineous_Size");
+   }
+   else
+   {
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Readable_Vector_Get_Contineous_Size");
+   }
+   if(30 != Buff_Writeable_Vector_Get_Contineous_Size(d_v, Num_Elems(d_v), 43))
+   {
+      printf("line: %5d; %-44s failed\n\r", __LINE__, "Buff_Writeable_Vector_Get_Contineous_Size");
+   }
+   else
+   {
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Writeable_Vector_Get_Contineous_Size");
    }
 
 
@@ -203,7 +223,7 @@ void vector_test(void)
    }
    if(0 == failure_cntr)
    {
-      printf("line: %5d; %-36s succeeded\n\r", __LINE__, "Buff_Copy_From_Vector");
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Copy_From_Vector");
    }
    else
    {
@@ -240,7 +260,7 @@ void vector_test(void)
    }
    if(0 == failure_cntr)
    {
-      printf("line: %5d; %-36s succeeded\n\r", __LINE__, "Buff_Copy_To_Vector");
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Copy_To_Vector");
    }
    else
    {
@@ -317,7 +337,7 @@ void vector_test(void)
    }
    if(0 == failure_cntr)
    {
-      printf("line: %5d; %-36s succeeded\n\r", __LINE__, "Buff_Copy_To_Vector-d_v_short");
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Copy_To_Vector-d_v_short");
    }
    else
    {
@@ -354,7 +374,7 @@ void vector_test(void)
    }
    if(0 == failure_cntr)
    {
-      printf("line: %5d; %-36s succeeded\n\r", __LINE__, "Buff_Copy_Vector_To_Vector");
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Copy_Vector_To_Vector");
    }
    else
    {
@@ -431,7 +451,7 @@ void vector_test(void)
    }
    if(0 == failure_cntr)
    {
-      printf("line: %5d; %-36s succeeded\n\r", __LINE__, "Buff_Copy_Vector_To_Vector-d_v_short");
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Copy_Vector_To_Vector-d_v_short");
    }
    else
    {
@@ -474,7 +494,7 @@ void vector_test(void)
    }
    if(0 == failure_cntr)
    {
-      printf("line: %5d; %-36s succeeded\n\r", __LINE__, "Buff_Copy_From_Vector_Vendor");
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Copy_From_Vector_Vendor");
    }
    else
    {
@@ -513,7 +533,7 @@ void vector_test(void)
    }
    if(0 == failure_cntr)
    {
-      printf("line: %5d; %-36s succeeded\n\r", __LINE__, "Buff_Copy_From_Vector_Vendor-limit");
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Copy_From_Vector_Vendor-limit");
    }
    else
    {
@@ -552,7 +572,7 @@ void vector_test(void)
    }
    if(0 == failure_cntr)
    {
-      printf("line: %5d; %-36s succeeded\n\r", __LINE__, "Buff_Copy_To_Vector_Vendor");
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Copy_To_Vector_Vendor");
    }
    else
    {
@@ -591,7 +611,7 @@ void vector_test(void)
    }
    if(0 == failure_cntr)
    {
-      printf("line: %5d; %-36s succeeded\n\r", __LINE__, "Buff_Copy_To_Vector_Vendor-limit");
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Copy_To_Vector_Vendor-limit");
    }
    else
    {

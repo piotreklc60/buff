@@ -107,6 +107,85 @@ Buff_Size_DT Buff_Get_Writeable_Vector_Data_Size(const Buff_Writeable_Vector_XT 
 
 
 
+#if( ( (!defined(BUFF_READABLE_VECTOR_GET_CONTINEOUS_SIZE_EXTERNAL)) && BUFF_READABLE_VECTOR_GET_CONTINEOUS_SIZE_ENABLED ) || ( (!defined(BUFF_WRITEABLE_VECTOR_GET_CONTINEOUS_SIZE_EXTERNAL)) && BUFF_WRITEABLE_VECTOR_GET_CONTINEOUS_SIZE_ENABLED ) || ( (!defined(BUFF_READABLE_TREE_GET_CONTINEOUS_SIZE_EXTERNAL)) && BUFF_READABLE_TREE_GET_CONTINEOUS_SIZE_ENABLED ) || ( (!defined(BUFF_WRITEABLE_TREE_GET_CONTINEOUS_SIZE_EXTERNAL)) && BUFF_WRITEABLE_TREE_GET_CONTINEOUS_SIZE_ENABLED ) )
+static Buff_Size_DT buff_readable_vector_get_contineous_size_internal(
+   const Buff_Readable_Vector_XT *vector, Buff_Num_Elems_DT vector_num_elems, Buff_Size_DT offset, Buff_Size_DT *vector_size)
+{
+   const Buff_Readable_Vector_XT*elem;
+   Buff_Size_DT                  pos = 0;
+   Buff_Size_DT                  result = 0;
+   Buff_Num_Elems_DT             cntr;
+
+   BUFF_ENTER_FUNC();
+
+   if(BUFF_LIKELY(BUFF_CHECK_PTR(Buff_Readable_Vector_XT, vector)))
+   {
+      for(cntr = 0; cntr < vector_num_elems; cntr++)
+      {
+         elem = &vector[cntr];
+
+         if(BUFF_LIKELY(BUFF_CHECK_PTR(const void, elem->data)))
+         {
+            if((offset >= pos) && (offset < (pos + elem->size)))
+            {
+               result = pos + elem->size - offset;
+               break;
+            }
+
+            pos += elem->size;
+         }
+      }
+   }
+
+   *vector_size = pos;
+
+   BUFF_EXIT_FUNC();
+
+   return result;
+} /* Buff_Readable_Vector_Get_Contineous_Size */
+#endif
+
+
+
+#if( (!defined(BUFF_READABLE_VECTOR_GET_CONTINEOUS_SIZE_EXTERNAL)) && BUFF_READABLE_VECTOR_GET_CONTINEOUS_SIZE_ENABLED )
+Buff_Size_DT Buff_Readable_Vector_Get_Contineous_Size(
+   const Buff_Readable_Vector_XT *vector, Buff_Num_Elems_DT vector_num_elems, Buff_Size_DT offset)
+{
+   Buff_Size_DT size;
+   Buff_Size_DT result;
+
+   BUFF_ENTER_FUNC();
+
+   result = buff_readable_vector_get_contineous_size_internal(vector, vector_num_elems, offset, &size);
+
+   BUFF_EXIT_FUNC();
+
+   return result;
+} /* Buff_Readable_Vector_Get_Contineous_Size */
+#endif
+
+
+
+#if( (!defined(BUFF_WRITEABLE_VECTOR_GET_CONTINEOUS_SIZE_EXTERNAL)) && BUFF_WRITEABLE_VECTOR_GET_CONTINEOUS_SIZE_ENABLED )
+Buff_Size_DT Buff_Writeable_Vector_Get_Contineous_Size(
+   const Buff_Writeable_Vector_XT *vector, Buff_Num_Elems_DT vector_num_elems, Buff_Size_DT offset)
+{
+   Buff_Size_DT size;
+   Buff_Size_DT result;
+
+   BUFF_ENTER_FUNC();
+
+   result = buff_readable_vector_get_contineous_size_internal(
+      (const Buff_Readable_Vector_XT*)vector, vector_num_elems, offset, &size);
+
+   BUFF_EXIT_FUNC();
+
+   return result;
+} /* Buff_Writeable_Vector_Get_Contineous_Size */
+#endif
+
+
+
 #if( (!defined(BUFF_COPY_FROM_VECTOR_EXTERNAL)) && BUFF_COPY_FROM_VECTOR_ENABLED )
 Buff_Size_DT Buff_Copy_From_Vector(
    void                            *dest,
@@ -614,6 +693,96 @@ Buff_Size_DT Buff_Get_Writeable_Tree_Data_Size(const Buff_Writeable_Tree_XT *tre
 
    return result;
 } /* Buff_Get_Writeable_Tree_Data_size */
+#endif
+
+
+
+#if(( (!defined(BUFF_READABLE_TREE_GET_CONTINEOUS_SIZE_EXTERNAL)) && BUFF_READABLE_TREE_GET_CONTINEOUS_SIZE_ENABLED ) || ( (!defined(BUFF_WRITEABLE_TREE_GET_CONTINEOUS_SIZE_EXTERNAL)) && BUFF_WRITEABLE_TREE_GET_CONTINEOUS_SIZE_ENABLED ) )
+static Buff_Size_DT Buff_Readable_Tree_Get_Contineous_Size_internal(
+   const Buff_Readable_Tree_XT *tree, Buff_Num_Elems_DT tree_num_elems, Buff_Size_DT offset, Buff_Size_DT *tree_size)
+{
+   const Buff_Readable_Tree_XT  *elem;
+   Buff_Size_DT                  pos = 0;
+   Buff_Size_DT                  branch_size;
+   Buff_Size_DT                  result = 0;
+   Buff_Size_DT                  branch_result;
+   Buff_Num_Elems_DT             cntr;
+
+   BUFF_ENTER_FUNC();
+
+   if(BUFF_LIKELY(BUFF_CHECK_PTR(Buff_Readable_Tree_XT, tree)))
+   {
+      for(cntr = 0; cntr < tree_num_elems; cntr++)
+      {
+         elem = &tree[cntr];
+
+         if(BUFF_UNLIKELY(BUFF_BOOL_IS_TRUE(elem->is_branch)))
+         {
+            branch_result = Buff_Readable_Tree_Get_Contineous_Size_internal(
+               elem->elem_type.tree.branch, elem->elem_type.tree.branch_num_elems, offset - pos, &branch_size);
+         }
+         else
+         {
+            branch_result = buff_readable_vector_get_contineous_size_internal(
+               elem->elem_type.vector.vector, elem->elem_type.vector.vector_num_elems, offset - pos, &branch_size);
+         }
+         if(0 != branch_result)
+         {
+            result = branch_result;
+            break;
+         }
+         else
+         {
+            pos += branch_size;
+         }
+      }
+   }
+
+   *tree_size = pos;
+
+   BUFF_EXIT_FUNC();
+
+   return result;
+} /* Buff_Readable_Tree_Get_Contineous_Size_internal */
+#endif
+
+
+
+#if( (!defined(BUFF_READABLE_TREE_GET_CONTINEOUS_SIZE_EXTERNAL)) && BUFF_READABLE_TREE_GET_CONTINEOUS_SIZE_ENABLED )
+Buff_Size_DT Buff_Readable_Tree_Get_Contineous_Size(
+   const Buff_Readable_Tree_XT *tree, Buff_Num_Elems_DT tree_num_elems, Buff_Size_DT offset)
+{
+   Buff_Size_DT                  result = 0;
+   Buff_Size_DT                  branch_result;
+
+   BUFF_ENTER_FUNC();
+
+   result = Buff_Readable_Tree_Get_Contineous_Size_internal(tree, tree_num_elems, offset, &branch_result);
+
+   BUFF_EXIT_FUNC();
+
+   return result;
+} /* Buff_Readable_Tree_Get_Contineous_Size */
+#endif
+
+
+
+#if( (!defined(BUFF_WRITEABLE_TREE_GET_CONTINEOUS_SIZE_EXTERNAL)) && BUFF_WRITEABLE_TREE_GET_CONTINEOUS_SIZE_ENABLED )
+Buff_Size_DT Buff_Writeable_Tree_Get_Contineous_Size(
+   const Buff_Writeable_Tree_XT *tree, Buff_Num_Elems_DT tree_num_elems, Buff_Size_DT offset)
+{
+   Buff_Size_DT                  result = 0;
+   Buff_Size_DT                  branch_result;
+
+   BUFF_ENTER_FUNC();
+
+   result = Buff_Readable_Tree_Get_Contineous_Size_internal(
+      (const Buff_Readable_Tree_XT *)tree, tree_num_elems, offset, &branch_result);
+
+   BUFF_EXIT_FUNC();
+
+   return result;
+} /* Buff_Writeable_Tree_Get_Contineous_Size */
 #endif
 
 

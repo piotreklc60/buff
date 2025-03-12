@@ -440,19 +440,47 @@ void tree_test(void)
    printf("\n\rtree size read test:\n\r");
    if(sizeof(src) != Buff_Get_Readable_Tree_Data_Size(s_t, Num_Elems(s_t)))
    {
-      printf("line: %5d; %-36s failed\n\r", __LINE__, "Buff_Get_Readable_Tree_Data_Size");
+      printf("line: %5d; %-44s failed\n\r", __LINE__, "Buff_Get_Readable_Tree_Data_Size");
    }
    else
    {
-      printf("line: %5d; %-36s succeeded\n\r", __LINE__, "Buff_Get_Readable_Tree_Data_Size");
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Get_Readable_Tree_Data_Size");
    }
    if(sizeof(src) != Buff_Get_Writeable_Tree_Data_Size(d_t, Num_Elems(d_t)))
    {
-      printf("line: %5d; %-36s failed\n\r", __LINE__, "Buff_Get_Writeable_Tree_Data_Size");
+      printf("line: %5d; %-44s failed\n\r", __LINE__, "Buff_Get_Writeable_Tree_Data_Size");
    }
    else
    {
-      printf("line: %5d; %-36s succeeded\n\r", __LINE__, "Buff_Get_Writeable_Tree_Data_Size");
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Get_Writeable_Tree_Data_Size");
+   }
+
+
+
+   printf("\n\rtree contineous element size read test:\n\r");
+   if(100 != Buff_Readable_Tree_Get_Contineous_Size(s_t, Num_Elems(s_t), 63))
+   {
+      printf("line: %5d; %-44s failed\n\r", __LINE__, "Buff_Readable_Tree_Get_Contineous_Size");
+   }
+   else
+   {
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Readable_Tree_Get_Contineous_Size");
+   }
+   if(93 != Buff_Readable_Tree_Get_Contineous_Size(s_t, Num_Elems(s_t), 70))
+   {
+      printf("line: %5d; %-44s failed\n\r", __LINE__, "Buff_Readable_Tree_Get_Contineous_Size");
+   }
+   else
+   {
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Readable_Tree_Get_Contineous_Size");
+   }
+   if(11 != Buff_Writeable_Tree_Get_Contineous_Size(d_t, Num_Elems(d_t), 60))
+   {
+      printf("line: %5d; %-44s failed\n\r", __LINE__, "Buff_Writeable_Tree_Get_Contineous_Size");
+   }
+   else
+   {
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Writeable_Tree_Get_Contineous_Size");
    }
 
 
@@ -490,7 +518,7 @@ void tree_test(void)
    }
    if(0 == failure_cntr)
    {
-      printf("line: %5d; %-36s succeeded\n\r", __LINE__, "Buff_Copy_From_Tree");
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Copy_From_Tree");
    }
    else
    {
@@ -527,7 +555,7 @@ void tree_test(void)
    }
    if(0 == failure_cntr)
    {
-      printf("line: %5d; %-36s succeeded\n\r", __LINE__, "Buff_Copy_To_Tree");
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Copy_To_Tree");
    }
    else
    {
@@ -604,7 +632,7 @@ void tree_test(void)
    }
    if(0 == failure_cntr)
    {
-      printf("line: %5d; %-36s succeeded\n\r", __LINE__, "Buff_Copy_To_Tree-d_t_short");
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Copy_To_Tree-d_t_short");
    }
    else
    {
@@ -642,7 +670,7 @@ void tree_test(void)
    }
    if(0 == failure_cntr)
    {
-      printf("line: %5d; %-36s succeeded\n\r", __LINE__, "Buff_Copy_Tree_To_Tree");
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Copy_Tree_To_Tree");
    }
    else
    {
@@ -719,7 +747,7 @@ void tree_test(void)
    }
    if(0 == failure_cntr)
    {
-      printf("line: %5d; %-36s succeeded\n\r", __LINE__, "Buff_Copy_Tree_To_Tree-d_t_short");
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Copy_Tree_To_Tree-d_t_short");
    }
    else
    {
@@ -761,7 +789,7 @@ void tree_test(void)
    }
    if(0 == failure_cntr)
    {
-      printf("line: %5d; %-36s succeeded\n\r", __LINE__, "Buff_Copy_From_Tree_Vendor");
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Copy_From_Tree_Vendor");
    }
    else
    {
@@ -801,7 +829,7 @@ void tree_test(void)
    }
    if(0 == failure_cntr)
    {
-      printf("line: %5d; %-36s succeeded\n\r", __LINE__, "Buff_Copy_From_Tree_Vendor-limit");
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Copy_From_Tree_Vendor-limit");
    }
    else
    {
@@ -840,7 +868,7 @@ void tree_test(void)
    }
    if(0 == failure_cntr)
    {
-      printf("line: %5d; %-36s succeeded\n\r", __LINE__, "Buff_Copy_To_Tree_Vendor");
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Copy_To_Tree_Vendor");
    }
    else
    {
@@ -880,7 +908,7 @@ void tree_test(void)
    }
    if(0 == failure_cntr)
    {
-      printf("line: %5d; %-36s succeeded\n\r", __LINE__, "Buff_Copy_To_Tree_Vendor-limit");
+      printf("line: %5d; %-44s succeeded\n\r", __LINE__, "Buff_Copy_To_Tree_Vendor-limit");
    }
    else
    {
