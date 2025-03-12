@@ -142,7 +142,7 @@ static Buff_Size_DT buff_readable_vector_get_contineous_size_internal(
    BUFF_EXIT_FUNC();
 
    return result;
-} /* Buff_Readable_Vector_Get_Contineous_Size */
+} /* buff_readable_vector_get_contineous_size_internal */
 #endif
 
 
@@ -698,7 +698,7 @@ Buff_Size_DT Buff_Get_Writeable_Tree_Data_Size(const Buff_Writeable_Tree_XT *tre
 
 
 #if(( (!defined(BUFF_READABLE_TREE_GET_CONTINEOUS_SIZE_EXTERNAL)) && BUFF_READABLE_TREE_GET_CONTINEOUS_SIZE_ENABLED ) || ( (!defined(BUFF_WRITEABLE_TREE_GET_CONTINEOUS_SIZE_EXTERNAL)) && BUFF_WRITEABLE_TREE_GET_CONTINEOUS_SIZE_ENABLED ) )
-static Buff_Size_DT Buff_Readable_Tree_Get_Contineous_Size_internal(
+static Buff_Size_DT buff_readable_tree_get_contineous_size_internal(
    const Buff_Readable_Tree_XT *tree, Buff_Num_Elems_DT tree_num_elems, Buff_Size_DT offset, Buff_Size_DT *tree_size)
 {
    const Buff_Readable_Tree_XT  *elem;
@@ -718,7 +718,7 @@ static Buff_Size_DT Buff_Readable_Tree_Get_Contineous_Size_internal(
 
          if(BUFF_UNLIKELY(BUFF_BOOL_IS_TRUE(elem->is_branch)))
          {
-            branch_result = Buff_Readable_Tree_Get_Contineous_Size_internal(
+            branch_result = buff_readable_tree_get_contineous_size_internal(
                elem->elem_type.tree.branch, elem->elem_type.tree.branch_num_elems, offset - pos, &branch_size);
          }
          else
@@ -743,7 +743,7 @@ static Buff_Size_DT Buff_Readable_Tree_Get_Contineous_Size_internal(
    BUFF_EXIT_FUNC();
 
    return result;
-} /* Buff_Readable_Tree_Get_Contineous_Size_internal */
+} /* buff_readable_tree_get_contineous_size_internal */
 #endif
 
 
@@ -757,7 +757,7 @@ Buff_Size_DT Buff_Readable_Tree_Get_Contineous_Size(
 
    BUFF_ENTER_FUNC();
 
-   result = Buff_Readable_Tree_Get_Contineous_Size_internal(tree, tree_num_elems, offset, &branch_result);
+   result = buff_readable_tree_get_contineous_size_internal(tree, tree_num_elems, offset, &branch_result);
 
    BUFF_EXIT_FUNC();
 
@@ -776,7 +776,7 @@ Buff_Size_DT Buff_Writeable_Tree_Get_Contineous_Size(
 
    BUFF_ENTER_FUNC();
 
-   result = Buff_Readable_Tree_Get_Contineous_Size_internal(
+   result = buff_readable_tree_get_contineous_size_internal(
       (const Buff_Readable_Tree_XT *)tree, tree_num_elems, offset, &branch_result);
 
    BUFF_EXIT_FUNC();
